@@ -1,33 +1,33 @@
 import express from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
+import dotenv from 'dotenv';
+import { signupUser, loginUser, allUsers, singleUserById } from '../controllers/userController.js';
+
+dotenv.config();
 
 const router = express.Router();
 
+//GET REQUESTS
 
 // Route to get all users
-router.get('/', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching users" });
-    }
-});
+
+router.get('/', allUsers);
 
 // Route to get a single user by ID
-router.get('/:id', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
+router.get('/:id', singleUserById);
 
-        if (!user) {
-            return res.status(401).json({ message: "User not found" });
-        }
 
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching user" });
-    }
-});
+
+//POST METHODS 
+
+// Signup Route
+router.post('/signup', signupUser);
+
+// Login Route
+router.post('/login', loginUser);
+
 
 export default router;
 // Compare this snippet from backend/routes/userRoutes.js:
