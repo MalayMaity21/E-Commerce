@@ -1,32 +1,34 @@
-const mongoose = require('mongoose');
-const orderSchema = new Schema({
-    name: {
-        type: String,
+import mongoose from 'mongoose';
+
+const orderSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
-    productName: {
-        type: String,
-        required: true
-    },
-    price: {
+    items: [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Product',
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
+    totalAmount: {
         type: Number,
         required: true
     },
-    quantity: {
-        type: Number,
+    isPaid: {
+        type: Boolean,
         required: true
-    },
-    address: {
-        type: String,
-        required: true
-    },
-    paymentMethod: {
-        type: String,
-        required: true,
-        enum: ["PayPal", "gPay", "Stripe", "Cash on Delivery"], // Allowed payment methods
     }
 });
 
-const Order = new mongoose.model('Order', orderSchema);
+const Order = mongoose.model('Order', orderSchema);
 
 export default Order;
