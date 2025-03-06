@@ -1,14 +1,10 @@
-import express from "express";
-import Order from "../models/Order.js";
-import mongoose from "mongoose";
-import { protect } from '../middleware/authMiddleware.js';
-import { allOrders, getOneOrder, singleUserOrder, newUser } from "../controllers/orderController.js";
-
+const express = require("express");
+const { allOrders, getOneOrder, singleUserOrder, newUser } = require("../controllers/orderController.js");
+const { protect } = require("../middleware/authMiddleware.js");
 
 const router = express.Router();
 
-
-//ALL THE GET REQUEST
+// ALL THE GET REQUESTS
 
 // Get all orders
 router.get("/", allOrders);
@@ -16,15 +12,12 @@ router.get("/", allOrders);
 // Get an order by ID
 router.get("/:id", getOneOrder);
 
-//get a single user orders
+// Get a single user's orders
 router.get("/myOrders", protect, singleUserOrder);
 
-
-
-//ALL THE POSTS REQUESTS
+// ALL THE POST REQUESTS
 
 // Create a new Order
 router.post("/", newUser);
 
-
-export default router;
+module.exports = router;

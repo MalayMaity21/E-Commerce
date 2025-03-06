@@ -1,8 +1,5 @@
-const mongoose = require("mongoose");
-import {
-  getALLProducts,
-  singleProductById,
-} from "../controllers/productController.js";
+const express = require("express");
+const { getALLProducts, singleProductById } = require("../controllers/productController.js");
 
 const router = express.Router();
 

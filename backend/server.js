@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
 
 // Connect to MongoDB and insert sample data
 connectDB().then(async () => {
-  await insertData();
+    await insertData();
 });
 
 // Routes
@@ -33,17 +33,17 @@ app.use("/api/orders", orderRoutes); // Order routes
 
 // Default Route
 app.get("/", (req, res) => {
-  res.send("E-Commerce API is running...");
+    res.send("E-Commerce API is running...");
 });
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: "Internal Server Error" });
+    console.error(err.stack);
+    res.status(500).json({ message: "Internal Server Error" });
 });
 
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
