@@ -6,12 +6,6 @@ import Order from "./models/Order.js";
 
 dotenv.config();
 
-// MongoDB Connection
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("✅ MongoDB Connected"))
-    .catch((err) => console.error("❌ MongoDB Connection Error:", err));
-
 // Sample Users
 const users = [
     { userName: "Alice", email: "alice@example.com", password: "123456", address: "New York", mobNum: 1234567890 },
@@ -28,17 +22,114 @@ const users = [
 
 // Sample Products
 const products = [
-    { name: "Evening Gown", price: 2500, description: "Elegant black evening gown", stock: 5, image: "https://m.media-amazon.com/images/I/31rwL+N65HL._AC_UY1100_.jpg" },
-    { name: "Summer Dress", price: 1800, description: "Light and comfortable floral summer dress", stock: 10, image: "https://www.sainly.com/cdn/shop/products/sainly-men-s-two-piece-suit-men-suits-formal-fashion-summer-suits-2-piece-dinner-suits-wedding-suits-bespoke-for-men-formal-dress-for-men-best-men-suits-summer-suits-for-men-sainly-29_800x.png?v=1663244661" },
-    { name: "Party Wear", price: 3000, description: "Trendy red party dress", stock: 7, image: "https://cdn.shopify.com/s/files/1/0347/3225/files/DressingWell_30s_4_600x600.png?v=1685444690" },
-    { name: "Casual Dress", price: 1500, description: "Stylish casual dress for daily wear", stock: 12, image: "https://www.mohanlalsons.com/cdn/shop/articles/Sherwani_MLS_df92cb5f-97e6-48fd-937c-65ae4011d522.jpg?v=1739435254" },
-    { name: "Lace Dress", price: 2800, description: "Beautiful lace dress with intricate patterns", stock: 6, image: "https://img.perniaspopupshop.com/catalog/product/v/a/VACHILM032309_1.jpg?impolicy=listingimagenew" },
-    { name: "Maxi Dress", price: 3200, description: "Flowy maxi dress perfect for any occasion", stock: 8, image: "https://media.istockphoto.com/id/1733124463/photo/stylish-dark-skinned-man-wearing-a-yellow-blazer.jpg?s=612x612&w=0&k=20&c=Cym3apJurmcvuBIE-Hrwg0J_7p32V3I2XncZcYuw7i4=" },
-    { name: "Cocktail Dress", price: 2700, description: "Chic cocktail dress for special events", stock: 9, image: "https://images.unsplash.com/photo-1617137968427-85924c800a22?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVucyUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D" },
-    { name: "Boho Dress", price: 2000, description: "Relaxed and stylish bohemian dress", stock: 11, image: "https://static.wixstatic.com/media/404447_3e2b2467c10241868050d6891af7f89e~mv2_d_4480_6720_s_4_2.jpg/v1/crop/x_338,y_0,w_3569,h_6720/fill/w_262,h_492,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/2W6A7043-Edit.jpg" },
-    { name: "Formal Dress", price: 3500, description: "Professional and elegant formal dress", stock: 4, image: "https://5.imimg.com/data5/SELLER/Default/2022/10/MS/UW/PU/161562894/fashion-garments-500x500.jpg" },
-    { name: "Wedding Dress", price: 10000, description: "Stunning white wedding dress", stock: 2, image: "https://i.pinimg.com/474x/dc/d4/0d/dcd40d9a7f9cf6a52e6cd4b2b93b15f6.jpg" },
+    {
+        imageUrl: "https://images.pexels.com/photos/5872361/pexels-photo-5872361.jpeg",
+        brand: "Nike",
+        title: "Evening Gown",
+        color: ["Black", "Navy Blue"],
+        discountedPrice: 2000,
+        price: 2500,
+        discountPercent: 20,
+        size: [
+            { name: "S", quantity: 5 },
+            { name: "M", quantity: 3 },
+            { name: "L", quantity: 2 }
+        ],
+        quantity: 10,
+        topLevelCategory: "Women",
+        secondLevelCategory: "Dresses",
+        thirdLevelCategory: "Gowns",
+        description: "Elegant black evening gown",
+        publicReviewers: 5000,
+        ratings: 4.5
+    },
+    {
+        imageUrl: "https://images.pexels.com/photos/5872361/pexels-photo-5872361.jpeg",
+        brand: "Nike",
+        title: "Summer Dress",
+        color: ["Floral", "Yellow", "Pink"],
+        discountedPrice: 1500,
+        price: 1800,
+        discountPercent: 17,
+        size: [
+            { name: "S", quantity: 4 },
+            { name: "M", quantity: 3 },
+            { name: "L", quantity: 3 }
+        ],
+        quantity: 10,
+        topLevelCategory: "Women",
+        secondLevelCategory: "Dresses",
+        thirdLevelCategory: "Casual Wear",
+        description: "Light and comfortable floral summer dress",
+        publicReviewers: 3200,
+        ratings: 4.3
+    },
+    {
+        imageUrl: "https://images.pexels.com/photos/5872361/pexels-photo-5872361.jpeg",
+        brand: "Adidas",
+        title: "Running Shoes",
+        color: ["White", "Blue"],
+        discountedPrice: 3500,
+        price: 4000,
+        discountPercent: 12,
+        size: [
+            { name: "8", quantity: 5 },
+            { name: "9", quantity: 3 },
+            { name: "10", quantity: 2 }
+        ],
+        quantity: 10,
+        topLevelCategory: "Men",
+        secondLevelCategory: "Footwear",
+        thirdLevelCategory: "Running Shoes",
+        description: "Comfortable and durable running shoes",
+        publicReviewers: 4800,
+        ratings: 4.7
+    },
+    {
+        imageUrl: "https://images.pexels.com/photos/5872361/pexels-photo-5872361.jpeg",
+        brand: "Puma",
+        title: "Hoodie Sweatshirt",
+        color: ["Gray", "Black"],
+        discountedPrice: 2800,
+        price: 3200,
+        discountPercent: 13,
+        size: [
+            { name: "M", quantity: 6 },
+            { name: "L", quantity: 4 },
+            { name: "XL", quantity: 2 }
+        ],
+        quantity: 12,
+        topLevelCategory: "Men",
+        secondLevelCategory: "Clothing",
+        thirdLevelCategory: "Hoodies & Sweatshirts",
+        description: "Warm and stylish hoodie for winter",
+        publicReviewers: 5500,
+        ratings: 4.6
+    },
+    {
+        imageUrl: "https://images.pexels.com/photos/5872361/pexels-photo-5872361.jpeg",
+        brand: "Levi's",
+        title: "Slim Fit Jeans",
+        color: ["Blue", "Black"],
+        discountedPrice: 2200,
+        price: 2800,
+        discountPercent: 21,
+        size: [
+            { name: "30", quantity: 7 },
+            { name: "32", quantity: 6 },
+            { name: "34", quantity: 5 }
+        ],
+        quantity: 18,
+        topLevelCategory: "Men",
+        secondLevelCategory: "Clothing",
+        thirdLevelCategory: "Jeans",
+        description: "Classic slim fit jeans for a modern look",
+        publicReviewers: 6200,
+        ratings: 4.4
+    }
 ];
+
+
 
 // Insert Sample Data
 const insertData = async () => {
