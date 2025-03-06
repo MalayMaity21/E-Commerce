@@ -14,10 +14,10 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<ProductDetails />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductDetails />} />
         </Routes>
       </main>
       <MainFooter />
