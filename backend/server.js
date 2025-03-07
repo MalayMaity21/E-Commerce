@@ -7,6 +7,7 @@ const insertData = require("./data.js");
 const productRoutes = require("./routes/productRoutes.js");
 const orderRoutes = require("./routes/orderRoutes.js");
 const userRoutes = require("./routes/userRoutes.js");
+const adminInsertData = require("./routes/adminInsertData.js"); // Corrected import
 
 dotenv.config(); // Load environment variables
 
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
-
+app.use("/api/adminInsertData", adminInsertData); // Corrected route
 // Default Route
 app.get("/", (req, res) => {
   res.send("E-Commerce API is running...");

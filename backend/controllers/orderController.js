@@ -82,10 +82,33 @@ const newUser = async (req, res) => {
   }
 };
 
+const adminInsertData = async (req, res) => {
+  try {
+    const { user, items, totalAmount, isPaid } = req.body;
+    if (!user || !items || items.length === 0 || totalAmount) {
+      return res.status(400).json({ message: "Please prove all required info..." });
+    }
+
+    const newOrder = new Order({
+      user,
+      items,
+      totalAmount,
+      isPaid
+    });
+
+    const savedOrder = await newOrder.save();
+
+    res.status(201).json({ message: "Order created successfully", order: savedOrder });
+  }
+  catch (error) {
+    res.status(500).json({ message: "Server error ", error: error.message });
+  }
+}
+
 module.exports = {
   allOrders,
   getOneOrder,
   singleUserOrder,
   newUser,
-  protect,
+  adminInsertData,
 };

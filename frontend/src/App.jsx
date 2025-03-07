@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ProductDetails from "./pages/ProductDetails";
 import { Routes, Route } from "react-router";
+import Dashboard from "./components/Admin/Dashboard";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductDetails />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </main>
       <MainFooter />

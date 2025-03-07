@@ -4,9 +4,9 @@ const {
   getOneOrder,
   singleUserOrder,
   newUser,
+  adminInsertData,
 } = require("../controllers/orderController.js");
-const { protect } = require("../middleware/authMiddleware.js");
-
+const { protect, adminMiddleware } = require("../middleware/authMiddleware.js");
 const router = express.Router();
 
 // ALL THE GET REQUESTS
@@ -24,5 +24,8 @@ router.get("/myOrders", protect, singleUserOrder);
 
 // Create a new Order
 router.post("/", newUser);
+
+// Admin insert data
+router.post("/adminInsertData", adminMiddleware, adminInsertData);
 
 module.exports = router;
