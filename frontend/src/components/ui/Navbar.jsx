@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <nav className="px-8 bg-white shadow-md p-4 flex items-center justify-between sticky top-0 z-50">
       {/* Left: Logo */}
-      <Link className="text-xl font-bold text-gray-800">MyLogo</Link>
+      <Link className="text-xl font-bold text-gray-800">Trendify</Link>
 
       {/* Middle: Search Bar */}
       <div className="relative">
